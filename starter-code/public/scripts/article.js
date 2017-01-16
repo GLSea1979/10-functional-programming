@@ -2,8 +2,11 @@
 
 // REVIEW: Check out all of the functions that we've cleaned up with arrow function syntax.
 
-// TODO: Wrap the entire contents of this file in an IIFE.
+// done: Wrap the entire contents of this file in an IIFE.
 // Pass in to the IIFE a module, upon which objects can be attached for later access.
+(function(module) {
+
+
 
 function Article(opts) {
   // REVIEW: Lets review what's actually happening here, and check out some new syntax!!
@@ -25,7 +28,7 @@ Article.prototype.toHtml = function() {
 Article.loadAll = rows => {
   rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-  // TODO: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
+  // done: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
   // is the transformation of one colleciton into another.
 
   /* OLD forEach():
@@ -33,7 +36,8 @@ Article.loadAll = rows => {
     Article.all.push(new Article(ele));
   });
   */
-
+  Article.all = rows.map(article => {new Article(article);
+  })
 };
 
 Article.fetchAll = callback => {
@@ -121,4 +125,5 @@ Article.prototype.updateRecord = function(callback) {
     })
     .then(console.log)
     .then(callback);
-  };
+  })(window);
+}  //close full page function
